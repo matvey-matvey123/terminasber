@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новогоднее настроение</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #001122, #0a2a4a);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff9900;
+            animation: glow 2s infinite alternate;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #b3e0ff;
+            margin-bottom: 30px;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            width: 300px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card i {
+            font-size: 3rem;
+            color: #ffcc00;
+            margin-bottom: 15px;
+        }
+        
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #ffcc00;
+        }
+        
+        .card p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        .countdown {
+            background: rgba(0, 40, 80, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px auto;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .countdown h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #4dffea;
+        }
+        
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 120px;
+        }
+        
+        .countdown-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+        
+        .countdown-label {
+            font-size: 1.2rem;
+            color: #b3e0ff;
+            margin-top: 10px;
+        }
+        
+        .tree-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .tree {
+            font-size: 4rem;
+            color: #2ecc71;
+            text-shadow: 0 0 10px #2ecc71;
+            margin-bottom: 10px;
+        }
+        
+        .tree-trunk {
+            display: inline-block;
+            width: 30px;
+            height: 50px;
+            background-color: #8B4513;
+            border-radius: 5px;
+        }
+        
+        .message {
+            text-align: center;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            line-height: 1.6;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #b3e0ff;
+            font-size: 1.1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Анимации */
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff9900; }
+            100% { text-shadow: 0 0 15px #ff9900, 0 0 30px #ff0000; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* Снежинки */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            z-index: 1;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-10px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        
+        /* Звезды */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        /* Огни на елке */
+        .light {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite alternate;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.2rem; }
+            .countdown-item { min-width: 90px; }
+            .countdown-value { font-size: 2.2rem; }
+            .tree { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tree"></i> С Новым Годом! <i class="fas fa-gift"></i></h1>
+            <p class="subtitle">Пусть этот год принесет счастье, здоровье и исполнение желаний!</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="card">
+                <i class="fas fa-snowflake"></i>
+                <h3>Зимняя сказка</h3>
+                <p>Морозные узоры на окнах, хрустящий снег под ногами и волшебство в воздухе — всё это создает неповторимую атмосферу праздника.</p>
+            </div>
+            
+            <div class="card">
+                <i class="fas fa-star"></i>
+                <h3>Новогодние традиции</h3>
+                <p>Украшение ёлки, подготовка подарков, семейный ужин и просмотр любимых новогодних фильмов — традиции, которые делают этот праздник особенным.</p>
+            </div>
+            
+            <div class="card">
+                <i class="fas fa-glass-cheers"></i>
+                <h3>Праздничное настроение</h3>
+                <p>Бой курантов, загадывание желаний, фейерверки и радостные встречи — всё это создает незабываемое новогоднее настроение.</p>
+            </div>
+        </div>
+        
+        <div class="countdown">
+            <h2><i class="far fa-clock"></i> До Нового года осталось:</h2>
+            <div class="countdown-container">
+                <div class="countdown-item">
+                    <div class="countdown-value" id="days">0</div>
+                    <div class="countdown-label">дней</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="hours">0</div>
+                    <div class="countdown-label">часов</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="minutes">0</div>
+                    <div class="countdown-label">минут</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="seconds">0</div>
+                    <div class="countdown-label">секунд</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tree-container">
+            <div class="tree" id="christmas-tree">🎄</div>
+            <div class="tree-trunk"></div>
+        </div>
+        
+        <div class="message">
+            <p><i class="fas fa-quote-left"></i> Новый год — это время надежд, новых начинаний и чудес. Пусть в вашем доме всегда царят мир, гармония и счастье. Желаем, чтобы все мечты сбылись, а каждый день приносил радость и вдохновение! <i class="fas fa-quote-right"></i></p>
+        </div>
+        
+        <footer>
+            <p>Создано с ❤️ для новогоднего настроения | 2024</p>
+            <p style="margin-top: 10px; font-size: 1rem;">
+                <i class="fas fa-music"></i> Нажмите на ёлку для праздничной музыки!
+            </p>
+        </footer>
+    </div>
+    
+    <!-- Аудио для фоновой музыки -->
+    <audio id="newYearAudio" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-jingle-bells-311.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // Создание снежинок
+        function createSnowflakes() {
+            const snowflakeContainer = document.body;
+            const snowflakeCount = 50;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = '❄';
+                
+                // Случайные параметры для снежинки
+                const size = Math.random() * 20 + 10;
+                const startPosition = Math.random() * 100;
+                const fallDuration = Math.random() * 5 + 5;
+                const fallDelay = Math.random() * 5;
+                
+                snowflake.style.left = `${startPosition}vw`;
+                snowflake.style.fontSize = `${size}px`;
+                snowflake.style.animationDuration = `${fallDuration}s`;
+                snowflake.style.animationDelay = `${fallDelay}s`;
+                
+                snowflakeContainer.appendChild(snowflake);
+            }
+        }
+        
+        // Создание звезд
+        function createStars() {
+            const starContainer = document.body;
+            const starCount = 30;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 4 + 2;
+                const leftPosition = Math.random() * 100;
+                const topPosition = Math.random() * 50;
+                const twinkleDuration = Math.random() * 2 + 2;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${leftPosition}vw`;
+                star.style.top = `${topPosition}vh`;
+                star.style.animationDuration = `${twinkleDuration}s`;
+                
+                starContainer.appendChild(star);
+            }
+        }
+        
+        // Создание огоньков на елке
+        function createTreeLights() {
+            const treeContainer = document.querySelector('.tree-container');
+            const lightCount = 20;
+            const colors = ['#ff0000', '#00ff00', '#ffff00', '#ff00ff', '#00ffff', '#ff9900'];
+            
+            for (let i = 0; i < lightCount; i++) {
+                const light = document.createElement('div');
+                light.classList.add('light');
+                
+                const colorIndex = Math.floor(Math.random() * colors.length);
+                const horizontalPos = Math.random() * 100;
+                const verticalPos = Math.random() * 80 + 10; // В области елки
+                const twinkleDuration = Math.random() * 2 + 1;
+                
+                light.style.backgroundColor = colors[colorIndex];
+                light.style.left = `${horizontalPos}%`;
+                light.style.top = `${verticalPos}%`;
+                light.style.animationDuration = `${twinkleDuration}s`;
+                
+                treeContainer.appendChild(light);
+            }
+        }
+        
+        // Обратный отсчет до Нового года
+        function updateCountdown() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const nextYear = currentYear + 1;
+            const newYearDate = new Date(`January 1, ${nextYear} 00:00:00`);
+            const diff = newYearDate - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Анимация елки
+        function animateTree() {
+            const tree = document.getElementById('christmas-tree');
+            let scale = 1;
+            let direction = 0.005;
+            
+            setInterval(() => {
+                scale += direction;
+                if (scale > 1.1 || scale < 0.9) {
+                    direction *= -1;
+                }
+                tree.style.transform = `scale(${scale})`;
+            }, 100);
+        }
+        
+        // Воспроизведение музыки при клике на елку
+        function setupAudio() {
+            const tree = document.getElementById('christmas-tree');
+            const audio = document.getElementById('newYearAudio');
+            let isPlaying = false;
+            
+            tree.addEventListener('click', () => {
+                if (!isPlaying) {
+                    audio.play();
+                    isPlaying = true;
+                    tree.style.cursor = 'pointer';
+                    tree.title = 'Остановить музыку';
+                } else {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    isPlaying = false;
+                    tree.title = 'Включить музыку';
+                }
+            });
+            
+            // Добавляем анимацию при наведении на елку
+            tree.addEventListener('mouseover', () => {
+                tree.style.transform = 'scale(1.2)';
+                tree.style.transition = 'transform 0.3s';
+            });
+            
+            tree.addEventListener('mouseout', () => {
+                tree.style.transform = 'scale(1)';
+            });
+        }
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            createSnowflakes();
+            createStars();
+            createTreeLights();
+            animateTree();
+            setupAudio();
+            
+            // Обновляем отсчет каждую секунду
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // Добавляем плавающую анимацию для некоторых элементов
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.animation = `float ${3 + index * 0.5}s ease-in-out infinite`;
+            });
+        });
+    </script>
+</body>
+</html>
